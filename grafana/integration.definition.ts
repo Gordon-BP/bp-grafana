@@ -3,19 +3,16 @@ import { integrationName } from './package.json'
 
 export default new IntegrationDefinition({
   name: integrationName,
-  version: '0.0.1',
+  title: "Grafana Cloud Integration",
+  description: "Sends metric events to Grafana Cloud via HTTP for visualization",
+  version: '0.0.2',
   readme: 'hub.md',
   icon: 'icon.svg',
   configuration: {
     schema: z.object({
-      grafana_url: z.string().describe("The URL for your Grafana cloud instance. Typically https://<Your_Company>.grafana.net"),
-      apiKey: z.string().describe("Your Grafana Cloud API Key. Get it from <Your_Grafana_Url>/connections/add-new-connection/http-metrics"),
+      grafana_url: z.string().describe("The URL for your Grafana cloud instance. Looks like https://influx-prod-12-us-west-0.grafana.net").title("Grafana URL"),
+      apiKey: z.string().describe("Your Grafana Cloud API Key. Get it from <Your_Grafana_Url>/connections/add-new-connection/http-metrics").title("Grafana API Token"),
     })
-  },
-  events: {
-    metricSent: {
-      schema: z.object({ id: z.string() })
-    },
   },
   actions: {
     sendMetric: {

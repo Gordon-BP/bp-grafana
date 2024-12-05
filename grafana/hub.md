@@ -1,1 +1,1 @@
-# Empty Integration
+# Grafana Cloud Integration

@@ -2,4 +2,7 @@
 /* tslint:disable */
 // This file is generated. Do not edit it manually.
 
-export type MetricSent = { id: string };
+export type MetricSent = {
+  /** The Id of the event sent to Grafana */
+  id: string;
+};

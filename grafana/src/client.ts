@@ -16,10 +16,10 @@ export class GrafanaCloudClient {
   // Using Prometheus schema
   async sendMetric(input, logger) {
     const { eventType, channel, botId, conversationId, userId } = input
-    const id = uuidv4() // Generate a unique ID for this metric
-    const timestamp = Date.now() // Get the current time
-    const body = `${eventType},channel=${channel},botId=${botId},userId=${userId},conversationId=${conversationId},id=${id} value=1 ${timestamp}`; // Format data
-
+    const uuid = uuidv4() // Generate a unique ID for this metric
+    const timestamp = Date.now().toString() // Get the current time
+    const body = `${eventType},channel=${channel},botId=${botId},userId=${userId},conversationId=${conversationId},uuid=${id} value=1 ${timestamp}`; // Format data
+    logger.forBot().info(`Logging data: ${body}`);
     try {
       // Send to Grafana Cloud
       const response = await this.axios.post('/api/v1/push/influx/write', body, {
@@ -31,7 +31,7 @@ export class GrafanaCloudClient {
     } catch (error) {
       logger.forBot().error('Error sending metric to Grafana Cloud:', error.response ? error.response.data : error.message);
     }
-    return id
+    return uuid
   }
 }
 
