@@ -10,7 +10,7 @@
   "private": true,
   "dependencies": {
     "@botpress/client": "0.34.0",
-    "@botpress/sdk": "1.2.1",
+    "@botpress/sdk": "1.6.2",
     "axios": "^1.7.9",
     "uuid": "^11.0.3",
     "zod": "^3.23.8"

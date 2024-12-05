@@ -5,12 +5,13 @@ export default new IntegrationDefinition({
   name: integrationName,
   title: "Grafana Cloud Integration",
   description: "Sends metric events to Grafana Cloud via HTTP for visualization",
-  version: '0.0.2',
+  version: '0.0.3',
   readme: 'hub.md',
   icon: 'icon.svg',
   configuration: {
     schema: z.object({
       grafana_url: z.string().describe("The URL for your Grafana cloud instance. Looks like https://influx-prod-12-us-west-0.grafana.net").title("Grafana URL"),
+      userId: z.string().describe("The Grafana user ID that can access the HTTP API. Usually 7 digits long.").title("Grafana User ID"),
       apiKey: z.string().describe("Your Grafana Cloud API Key. Get it from <Your_Grafana_Url>/connections/add-new-connection/http-metrics").title("Grafana API Token"),
     })
   },
@@ -28,7 +29,7 @@ export default new IntegrationDefinition({
         })
       },
       output: {
-        schema: z.object({ id: z.string() }) // Defines the output schema of creating a task.
+        schema: z.object({}) // No returned object
       }
     }
   },
