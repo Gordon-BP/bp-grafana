@@ -20,12 +20,12 @@ export default new bp.Integration({
       // Initializing Grafana Cloud Client with necessary configurations.
       const gc = new GrafanaCloudClient(ctx.configuration.apiKey, ctx.configuration.grafanaUrl, ctx.configuration.grafanaUserId)
       // Send the information as a metric
-      // gc.sendMetric(input, logger).catch((err) => {
-      //   logger.forBot().error("Error sending metric to Grafana Cloud:", err);  // Handle any errors in the background
-      // }).then(() => {
-      //   logger.forBot().info("successfully pushed data to grafana")
-      // });
-      await gc.sendMetric(input, logger);
+      gc.sendMetric(input, logger).catch((err) => {
+        logger.forBot().error("Error sending metric to Grafana Cloud:", err);  // Handle any errors in the background
+      }).then(() => {
+        logger.forBot().info("successfully pushed data to grafana")
+      });
+      // await gc.sendMetric(input, logger);
       return {}
     }
   },

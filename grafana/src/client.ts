@@ -1,13 +1,6 @@
+import { RuntimeError } from '@botpress/client';
 import axios, { AxiosInstance } from 'axios'
 import { v4 as uuidv4 } from 'uuid';
-import * as sdk from '@botpress/sdk'
-
-export class InvalidMetricDataError extends sdk.RuntimeError {
-  public constructor(message: string) {
-    super(`Error while parsing Grafana metric data: ${message}`)
-  }
-}
-
 export class GrafanaCloudClient {
   private axios: AxiosInstance  // Instance of Axios to make HTTP requests.
 
@@ -28,7 +21,7 @@ export class GrafanaCloudClient {
   async sendMetric(input, logger) {
     input.forEach((value: string, _: string) => {
       if (/"\s"/.test(value)) {
-        throw new InvalidMetricDataError("No spaces allowed in metric values!");
+        throw new RuntimeError("No spaces allowed in metric values!");
       }
     });
     const { name, channel, botId, conversationId, userId } = input
