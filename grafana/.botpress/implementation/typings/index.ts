@@ -19,7 +19,7 @@ export * as entities from "./entities/index"
 
 export type TIntegration = {
   name: "grafana"
-  version: "0.0.3"
+  version: "1.0.0"
   user: { "tags": {}, "creation": { "enabled": false, "requiredTags": [] } }
   configuration: configuration.Configuration
   configurations: configurations.Configurations
