@@ -1,35 +1,27 @@
 {
-  description = "Development environment for the Grafana project with Bun and direnv";
-
+  description = "Development environment with Node.js and Bun";
+  
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
-    bun.url = "github:JLevasseur/nix-bun"; # Community Bun flake
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
-
-  outputs = { self, nixpkgs, flake-utils, bun }: flake-utils.lib.eachDefaultSystem (system: let
-    pkgs = import nixpkgs { inherit system; };
-  in {
-    devShell = pkgs.mkShell {
-      name = "grafana-dev-shell";
-
-      buildInputs = [
-        bun.defaultPackage # Provides Bun
-        pkgs.nodejs # Needed for some Node.js-related utilities
-        pkgs.direnv # To manage environment variables and loading
-      ];
-
-      shellHook = ''
-        eval "$(direnv hook bash)"
-        export NODE_ENV=development
-        echo "Development environment for Grafana project loaded."
-      '';
-
-      nativeBuildInputs = [ pkgs.nix-direnv ];
+  
+  outputs = { self, nixpkgs }:
+    let
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      pkgsFor = system: nixpkgs.legacyPackages.${system};
+    in {
+      devShells = forAllSystems (system: {
+        default = (pkgsFor system).mkShell {
+          packages = with (pkgsFor system); [
+            bun
+            nodejs
+            direnv
+          ];
+          
+          # Use nix-shell-based environment variable setting
+          NODE_ENV = "development";
+        };
+      });
     };
-
-    packages = {
-      default = bun.defaultPackage;
-    };
-  });
 }

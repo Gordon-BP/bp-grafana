@@ -12,7 +12,7 @@ export default new IntegrationDefinition({
     schema: z.object({
       grafanaUrl: z.string().describe("The URL for your Grafana cloud instance. Looks like https://influx-prod-12-us-west-0.grafana.net").title("Grafana URL"),
       grafanaUserId: z.string().describe("The Grafana user ID that can access the HTTP API. Usually 7 digits long.").title("Grafana User ID"),
-      apiKey: z.string().describe("Your Grafana Cloud API Key. Get it from <Your_Grafana_Url>/connections/add-new-connection/http-metrics").title("Grafana API Token"),
+      apiKey: z.string().describe("Your Grafana Cloud API Key. Get it from <Your_Grafana_Url>/connections/add-new-connection/http-metrics").title("Grafana HTTP Metrics API Token"),
     })
   },
   actions: {
@@ -22,10 +22,10 @@ export default new IntegrationDefinition({
       input: {
         schema: z.object({
           name: z.string().describe("The name of the metric").title("Metric Name"),
-          channel: z.string().describe("Which channel the conversation happened on; web, emulator, WhatsApp, etc").title("Channel"),
-          botId: z.string().describe("For which bot this event happened").title("Bot ID"),
-          conversationId: z.string().describe("For which conversation this event happened").title("Converation ID"),
-          userId: z.string().describe("For which user this event happened").title("User ID"),
+          channel: z.string().default("{{event.integration}}").describe("Which channel the conversation happened on; web, emulator, WhatsApp, etc").title("Channel"),
+          botId: z.string().default("{{event.botId}}").describe("For which bot this event happened").title("Bot ID"),
+          conversationId: z.string().default("{{event.conversationId}}").describe("For which conversation this event happened").title("Converation ID"),
+          userId: z.string().default("{{event.userId}}").describe("For which user this event happened").title("User ID"),
           version: z.number().default(0).describe("A version number for the bot").title("Bot Version"),
         })
       },

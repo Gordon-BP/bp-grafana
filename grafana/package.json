@@ -10,16 +10,16 @@
   },
   "private": true,
   "dependencies": {
-    "@botpress/client": "0.34.0",
-    "@botpress/sdk": "1.6.2",
+    "@botpress/client": "0.38.1",
+    "@botpress/sdk": "2.1.0",
     "axios": "^1.7.9",
     "uuid": "^11.0.3",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@botpress/cli": "^1.7.3",
-    "@types/node": "^18.19.68",
+    "@botpress/cli": "^2.1.5",
+    "@types/node": "^22.10.2",
     "ts-node": "^10.9.2",
-    "typescript": "^4.9.5"
+    "typescript": "^5.7.2"
   }
 }

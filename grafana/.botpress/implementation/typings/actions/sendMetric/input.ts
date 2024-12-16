@@ -6,13 +6,13 @@ export type Input = {
   /** The name of the metric */
   name: string;
   /** Which channel the conversation happened on; web, emulator, WhatsApp, etc */
-  channel: string;
+  channel?: string;
   /** For which bot this event happened */
-  botId: string;
+  botId?: string;
   /** For which conversation this event happened */
-  conversationId: string;
+  conversationId?: string;
   /** For which user this event happened */
-  userId: string;
+  userId?: string;
   /** A version number for the bot */
   version?: number;
 };
