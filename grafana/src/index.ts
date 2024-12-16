@@ -25,6 +25,17 @@ export default new bp.Integration({
       } catch (error) {
         throw new RuntimeError(JSON.stringify(error))
       }
+    },
+
+    sendRawData: async ({ ctx, input, logger }) => {
+      // Initializing Grafana Cloud Client with necessary configurations.
+      const gc = new GrafanaCloudClient(ctx.configuration.apiKey, ctx.configuration.grafanaUrl, ctx.configuration.grafanaUserId)
+      try {
+        await gc.sendRawData(input, logger);
+        return {}
+      } catch (error) {
+        throw new RuntimeError(JSON.stringify(error))
+      }
     }
   },
   channels: {},

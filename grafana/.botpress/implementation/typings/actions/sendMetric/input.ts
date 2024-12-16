@@ -13,4 +13,6 @@ export type Input = {
   conversationId: string;
   /** For which user this event happened */
   userId: string;
+  /** A version number for the bot */
+  version?: number;
 };

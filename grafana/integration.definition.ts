@@ -26,6 +26,19 @@ export default new IntegrationDefinition({
           botId: z.string().describe("For which bot this event happened").title("Bot ID"),
           conversationId: z.string().describe("For which conversation this event happened").title("Converation ID"),
           userId: z.string().describe("For which user this event happened").title("User ID"),
+          version: z.number().default(0).describe("A version number for the bot").title("Bot Version"),
+        })
+      },
+      output: {
+        schema: z.object({}) // No returned object
+      }
+    },
+    sendRawData: {
+      title: "Send Raw Data",
+      description: "Sends a raw prometheus log string to Grafana via HTTP",
+      input: {
+        schema: z.object({
+          data: z.string().describe("The data string to send to Grafana. No whitespace.").title("Data"),
         })
       },
       output: {
