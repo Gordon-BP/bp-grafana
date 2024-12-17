@@ -3,11 +3,19 @@ import * as bp from '.botpress'
 import { GrafanaCloudClient } from './client'
 
 export default new bp.Integration({
-  register: async () => {
+  register: async ({ ctx }) => {
     /**
      * This is called when an integration configuration is saved.
      * You should use this handler to instanciate ressources in the external service and ensure that the configuration is valid.
      */
+    const { apiKey, grafanaUrl, grafanaUserId } = ctx.configuration;
+    if (!apiKey) {
+      throw new RuntimeError("Missing Grafana API Key!")
+    } else if (!grafanaUrl) {
+      throw new RuntimeError("Missing Grafana URL!")
+    } else if (!grafanaUserId) {
+      throw new RuntimeError("Missing Grafana user id!")
+    }
   },
   unregister: async () => {
     /**
