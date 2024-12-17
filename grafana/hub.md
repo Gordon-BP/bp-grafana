@@ -36,6 +36,20 @@ Advanced users can define their own custom prometheus string, minus the timestam
 
 Three pieces of information are needed to configure this integration, all of which are available when you add an HTTP Metrics data connection to your Grafana instance here https://<YOUR_ORG>.grafana.net/connections/add-new-connection/http-metrics 
 
+![Screenshot of the sample code at the bottom of the add connections page](grafanaConnectionSS.png)
+
 ### API Key
 
 This is a scoped API token that has write permissions on metrics, logs, and traces. It is different from the API key used to export metrics
+
+### User ID
+
+This is a 7-digit number unique to your Grafana instance. You can get it from the code sample at the bottom of the 'Add connection' page.
+
+### Endpoint URL
+
+This is the server address where you push metrics. Make sure it starts with `influx-`. You can get it from the code sample at the bottom of the 'Add connection' page.
+
+## Exporting Metrics
+
+The Grafana free tier only retains metrics and logs for 14 days. You can pull your metrics data out of Grafana using the shell script in the repo.
