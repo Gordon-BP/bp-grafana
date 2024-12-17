@@ -21,6 +21,9 @@
           
           # Use nix-shell-based environment variable setting
           NODE_ENV = "development";
+          shellHook = ''
+            bun install
+            '';
         };
       });
     };
