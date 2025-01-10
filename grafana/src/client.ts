@@ -1,16 +1,8 @@
+import { ActionProps } from '.botpress';
 import { RuntimeError } from '@botpress/client';
 import { IntegrationLogger } from '@botpress/sdk';
 import axios, { AxiosInstance } from 'axios'
 import { v4 as uuidv4 } from 'uuid';
-
-export type MetricProps = {
-  name: string,
-  channel: string,
-  botId: string,
-  conversationId: string,
-  userId: string,
-  version: number
-}
 
 export class GrafanaCloudClient {
   private axios: AxiosInstance  // Instance of Axios to make HTTP requests.
@@ -28,7 +20,8 @@ export class GrafanaCloudClient {
 
   // Method to get send a single metric to Grafana Cloud
   // Using Prometheus schema
-  async sendMetric(input: MetricProps, logger: IntegrationLogger) {
+  async sendMetric(props: ActionProps['sendMetric']) {
+    const { input, logger } = props
     Object.entries(input).forEach(([_, value]) => {
       if (/\s/.test(JSON.stringify(value))) {
         throw new RuntimeError(`No spaces allowed in metric value: ${value}`);
@@ -44,12 +37,12 @@ export class GrafanaCloudClient {
       await this.axios.post('/api/v1/push/influx/write', body);
       logger.forBot().info(`Metric successfully sent to Grafana Cloud: ${body}`);
     } catch (error) {
-      logger.forBot().error('Error sending metric to Grafana Cloud:', error);
+      throw new RuntimeError(`Error sending metric to Grafana Cloud: ${error}`);
     }
   }
   // Method to send a single raw prometheus string
-  async sendRawData(input: string, logger: IntegrationLogger) {
-    input.split(" ").forEach((value) => {
+  async sendRawData(data: string, logger: IntegrationLogger) {
+    data.split(" ").forEach((value) => {
       if (/\s/.test(JSON.stringify(value))) {
         throw new RuntimeError(`No spaces allowed in raw data string: ${value}`);
       }
@@ -57,10 +50,10 @@ export class GrafanaCloudClient {
     try {
       // Send to Grafana Cloud
       logger.forBot().info("Pushing to grafana...");
-      await this.axios.post('/api/v1/push/influx/write', input);
-      logger.forBot().info(`Metric successfully sent to Grafana Cloud: ${input}`);
+      await this.axios.post('/api/v1/push/influx/write', data);
+      logger.forBot().info(`Metric successfully sent to Grafana Cloud: ${data}`);
     } catch (error) {
-      logger.forBot().error('Error sending metric to Grafana Cloud:', error);
+      throw new RuntimeError(`Error sending metric to Grafana Cloud: ${error}`);
     }
   }
 }
