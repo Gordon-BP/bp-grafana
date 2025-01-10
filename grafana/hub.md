@@ -1,11 +1,14 @@
 # Grafana Cloud Integration
 
-This integration lets you send events to [Grafana Cloud](https://grafana.com/products/cloud/) for additional observability.
+This integration lets bots send metric events to [Grafana Cloud](https://grafana.com/products/cloud/) for additional observability.
+
+## [View a Video Walkthrough of the integration here](https://youtu.be/b0LuhOEFKfU)
 
 These events can be used for:
 1. Tracking custom metrics such as workflow completion or automation successes
-2. Viewing usage data in real-time
-3. Monitoring chatbot performance over time, such as response latency, user drop-offs, and error rates
+2. Breaking down usage metrics by channel.
+3. Viewing usage data in real-time
+4. Monitoring chatbot performance over time, such as response latency, user drop-offs, and error rates
 
 For an overview of Grafana HTTP APIs for metrics, check out [this blog post](https://grafana.com/blog/2024/03/21/how-to-use-http-apis-to-send-metrics-and-logs-to-grafana-cloud/).
 
@@ -26,17 +29,15 @@ This card is useful for quickly recording metric-related events.
 
 ### Send Raw Data
 
-Advanced users can define their own custom Prometheus string, minus the timestamp. For example, this records a metric called "test" with a value of 35.2 and metadata bar_label and source:
+Advanced users can define their own custom Prometheus string, minus the timestamp. For example, this records a metric called "conv_end" with a value of 1 and metadata botId and choice:
 
-`test,bar_label=abc,source=grafana_cloud_docs metric=35.2`
+`conv_end,botId=demoBot,choice={{event.preview}} metric=1`
 
-**Metric names cannot contain whitespace!**
+**Metric strings cannot contain whitespace!** The above example **will** cause errors if `event.preview` contains whitespace. Be cautious and preprocess any strings before sending them as metrics.
 
 ## Configuration
 
 Three pieces of information are needed to configure this integration, all of which are available when you add an HTTP Metrics data connection to your Grafana instance here: https://<YOUR_ORG>.grafana.net/connections/add-new-connection/http-metrics
-
-![Screenshot of the sample code at the bottom of the add connections page](grafanaConnectionSS.png)
 
 ### API Key
 
