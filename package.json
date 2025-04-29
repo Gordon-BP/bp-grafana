@@ -1,0 +1,25 @@
+{
+  "name": "grafana",
+  "integrationName": "grafana",
+  "scripts": {
+    "version": "bp --version",
+    "login": "bp login",
+    "gen": "bp gen",
+    "build": "bp build",
+    "deploy": "bp deploy"
+  },
+  "private": true,
+  "dependencies": {
+    "@botpress/client": "0.38.1",
+    "@botpress/sdk": "2.1.0",
+    "axios": "^1.7.9",
+    "uuid": "^11.0.3",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@botpress/cli": "^2.1.5",
+    "@types/node": "^22.10.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
