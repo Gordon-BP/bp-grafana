@@ -11,7 +11,7 @@
   "private": true,
   "dependencies": {
     "@botpress/client": "0.38.1",
-    "@botpress/sdk": "2.5.0",
+    "@botpress/sdk": "4.0.7",
     "axios": "^1.9.0",
     "uuid": "^11.1.0",
     "zod": "^3.24.3"
