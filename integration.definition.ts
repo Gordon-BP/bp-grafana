@@ -5,7 +5,7 @@ export default new IntegrationDefinition({
   name: integrationName,
   title: "Grafana Cloud Integration",
   description: "Sends metric events to Grafana Cloud via HTTP for visualization",
-  version: '1.2.1',
+  version: '1.3.0',
   readme: 'hub.md',
   icon: 'icon.svg',
   configuration: {
