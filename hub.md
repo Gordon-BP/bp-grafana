@@ -1,3 +1,5 @@
+<iframe src="https://youtu.be/b0LuhOEFKfU" ></iframe>
+
 # Grafana Cloud Integration
 
 This integration lets bots send metric events to [Grafana Cloud](https://grafana.com/products/cloud/) for additional observability.
