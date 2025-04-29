@@ -1,0 +1,4 @@
+.env
+.direnv/
+.botpress/
+node_modules/
