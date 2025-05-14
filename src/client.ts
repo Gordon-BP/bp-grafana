@@ -42,7 +42,7 @@ export class GrafanaCloudClient {
         logger.forBot().info(`Metric successfully sent to Grafana Cloud: ${body}`);
         break;
       } catch (error: any) {
-        if (error.response?.status === 429) {
+        if (error.response?.status === 429 || error.response?.status === 400) {
           if (retries < maxRetries) {
             logger.forBot().warn(`Retrying (${retries + 1}/${maxRetries}) due to rate limiting...`);
             await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
@@ -73,7 +73,7 @@ export class GrafanaCloudClient {
         logger.forBot().info(`Metric successfully sent to Grafana Cloud: ${data}`);
         break;
       } catch (error: any) {
-        if (error.response?.status === 429) {
+        if (error.response?.status === 429 || error.response?.status === 400) {
           if (retries < maxRetries) {
             logger.forBot().warn(`Retrying (${retries + 1}/${maxRetries}) due to rate limiting...`);
             await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
